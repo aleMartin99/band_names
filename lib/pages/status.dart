@@ -9,10 +9,26 @@ class StatusPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final socketService = Provider.of<SocketService>(context);
+    //socketService.socket.emit();
 
-    return const Scaffold(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.message),
+        onPressed: () {
+          socketService.socket.emit('emitir-mensaje',
+              {'nombre': 'Flutter', 'mensaje': 'Hola desde Flutter'});
+        },
+      ),
       body: Center(
-        child: Text('Hola'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'ServerStatus: ${socketService.serverStatus}',
+              style: const TextStyle(fontSize: 22),
+            ),
+          ],
+        ),
       ),
     );
   }
